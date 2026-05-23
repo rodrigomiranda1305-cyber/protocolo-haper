@@ -627,6 +627,13 @@ button {
   margin: 0 auto;
 }
 
+vturb-smartplayer {
+  max-width: 720px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
 .video-microcopy {
   font-size: 0.85rem;
   color: var(--text-secondary);

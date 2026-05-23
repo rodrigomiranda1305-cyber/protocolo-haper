@@ -226,6 +226,19 @@ btnCont.addEventListener('click', function () {
    BOTÃO "VER MEU DIAGNÓSTICO COMPLETO"
    Esconde o quiz, revela #page-tail e rola para o resultado.
    ------------------------------------------------------------ */
+/* Injeta o player VTurb apenas no momento da revelação, evitando
+   carregamento e reprodução antecipada. */
+function revealVSL() {
+  var container = document.getElementById('vsl-container');
+  if (!container || container.dataset.loaded) { return; }
+  container.dataset.loaded = 'true';
+  container.innerHTML = '<vturb-smartplayer id="vid-6a111a839435c3597d5ce5e9" style="display:block;margin:0 auto;width:100%;max-width:720px;"></vturb-smartplayer>';
+  var s = document.createElement('script');
+  s.src = 'https://scripts.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/players/6a111a839435c3597d5ce5e9/v4/player.js';
+  s.async = true;
+  document.head.appendChild(s);
+}
+
 document.getElementById('btn-reveal').addEventListener('click', function () {
   if (typeof fbq === 'function') { fbq('trackCustom', 'ViewDiagnostic'); }
   /* Esconde a seção do quiz inteira */
@@ -234,6 +247,9 @@ document.getElementById('btn-reveal').addEventListener('click', function () {
   /* Revela o restante da página */
   var tail = document.getElementById('page-tail');
   tail.style.display = 'block';
+
+  /* Injeta a VSL agora que o conteúdo está visível */
+  revealVSL();
 
   /* Pequeno delay para o browser recalcular o layout antes do scroll */
   setTimeout(function () {
