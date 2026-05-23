@@ -232,9 +232,9 @@ function revealVSL() {
   var container = document.getElementById('vsl-container');
   if (!container || container.dataset.loaded) { return; }
   container.dataset.loaded = 'true';
-  container.innerHTML = '<vturb-smartplayer id="vid-6a111a839435c3597d5ce5e9" style="display:block;margin:0 auto;width:100%;max-width:720px;"></vturb-smartplayer>';
+  container.innerHTML = '<vturb-smartplayer id="vid-6a122082eedd86301a423ca3" style="display:block;margin:0 auto;width:100%;max-width:720px;"></vturb-smartplayer>';
   var s = document.createElement('script');
-  s.src = 'https://scripts.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/players/6a111a839435c3597d5ce5e9/v4/player.js';
+  s.src = 'https://scripts.converteai.net/8f8a1087-a192-4f93-9fe2-baacd1e8f7f1/players/6a122082eedd86301a423ca3/v4/player.js';
   s.async = true;
   document.head.appendChild(s);
 }
