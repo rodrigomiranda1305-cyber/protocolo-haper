@@ -274,7 +274,7 @@ document.getElementById('btn-reveal').addEventListener('click', function () {
 
 /* InitiateCheckout — clique em qualquer botão de compra Yampi */
 (function () {
-  var yampiLinks = document.querySelectorAll('a[href="https://fidelize.pay.yampi.com.br/r/Q8EWFZYMTW"]');
+  var yampiLinks = document.querySelectorAll('a[href="https://checkoutseguro.ru/checkout/cmpkk9y8i0vpl01mnwd6a2abx?offer=W16O0XN"]');
   yampiLinks.forEach(function (el) {
     el.addEventListener('click', function () {
       if (typeof fbq === 'function') { fbq('track', 'InitiateCheckout'); }
