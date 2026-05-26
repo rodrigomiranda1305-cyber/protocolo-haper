@@ -13,8 +13,8 @@
   --text-secondary:  #4A4A4A;
   --accent-primary:  #7A1F2B;
   --accent-hover:    #5e1620;
+  --accent-dark:     #651822;
   --accent-alert:    #C2410C;
-  --accent-alert-hover: #a33509;
   --border-soft:     #E5E5E0;
   --white:           #FFFFFF;
   --shadow-soft:     0 2px 12px rgba(0, 0, 0, 0.06);
@@ -43,6 +43,10 @@ body {
   line-height: 1.7;
   color: var(--text-primary);
   background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(circle at 25% 25%, rgba(122, 31, 43, 0.015) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(122, 31, 43, 0.015) 0%, transparent 50%);
+  background-attachment: fixed;
 }
 
 h1, h2, h3 {
@@ -84,30 +88,38 @@ button {
   padding: 60px 0;
 }
 
-/* Animações */
-@keyframes fadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Classe aplicada via JS para animar a entrada dos painéis do quiz */
-.quiz-anim {
-  animation: fadeSlideIn 0.32s ease forwards;
+.section-headline {
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @keyframes pulse-border {
   0%, 100% { box-shadow: 0 0 0 0 rgba(122, 31, 43, 0.3); }
   50%       { box-shadow: 0 0 0 8px rgba(122, 31, 43, 0); }
+}
+
+
+/* ============================================================
+   PLACEHOLDERS
+   ============================================================ */
+.image-placeholder {
+  background-color: #D8D8D0;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 20px;
+  border-radius: var(--radius-lg);
+  font-size: 0.85rem;
+  font-weight: 500;
+  min-height: 220px;
+  line-height: 1.5;
+  border: 2px dashed #BFBFB5;
 }
 
 
@@ -129,17 +141,41 @@ button {
   letter-spacing: 0.04em;
   transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   -webkit-appearance: none;
+  box-shadow: 0 4px 12px rgba(122, 31, 43, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .btn-primary:hover {
   background-color: var(--accent-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(122, 31, 43, 0.3);
+  box-shadow: 0 6px 16px rgba(122, 31, 43, 0.35);
 }
 
 .btn-primary:active {
   transform: translateY(0);
   box-shadow: none;
+}
+
+.btn-urgencia {
+  display: inline-block;
+  background-color: var(--white);
+  color: var(--accent-primary);
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 16px 28px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0.04em;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.btn-urgencia:hover {
+  background-color: #F5F0EE;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .btn-cta-large {
@@ -172,87 +208,57 @@ button {
 
 
 /* ============================================================
-   PLACEHOLDERS
+   PREÇO (reutilizado em múltiplas seções)
    ============================================================ */
-.image-placeholder {
-  background-color: #D8D8D0;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 24px 20px;
-  border-radius: var(--radius-lg);
-  font-size: 0.85rem;
-  font-weight: 500;
-  min-height: 250px;
-  line-height: 1.5;
-  border: 2px dashed #BFBFB5;
-}
-
-.video-placeholder {
-  background-color: #111111;
-  color: #888;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 24px 20px;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border-radius: var(--radius-md);
+.price-old {
   font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  border: 2px dashed #333;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
 }
 
-.avatar-placeholder {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background-color: #D8D8D0;
+.price-old s {
+  text-decoration: line-through;
+}
+
+.price-main {
+  font-size: clamp(1rem, 3vw, 1.2rem);
   color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.72rem;
+  margin-bottom: 4px;
+}
+
+.price-main strong {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.8rem, 9vw, 3.8rem);
   font-weight: 700;
-  letter-spacing: 0.05em;
-  margin: 0 auto 16px;
-  border: 2px dashed #BFBFB5;
-  flex-shrink: 0;
+  color: var(--accent-primary);
+  line-height: 1;
+  display: block;
+  margin: 8px 0;
 }
 
-.screenshot-placeholder {
-  background-color: #D8D8D0;
+.price-detail {
+  font-size: 0.82rem;
   color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-  height: 300px;
-  border-radius: var(--radius-md);
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 12px;
-  border: 2px dashed #BFBFB5;
 }
 
-.section-headline {
-  font-size: clamp(1.35rem, 4vw, 2rem);
-  margin-bottom: 40px;
-  text-align: center;
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+.price-card-eyebrow {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
 }
 
 
 /* ============================================================
-   LOGO
+   SEÇÃO 1 — HERO
    ============================================================ */
+.hero-section {
+  background-color: var(--bg-primary);
+  text-align: center;
+}
+
 .hero-logo-wrap {
   text-align: center;
   margin-bottom: 40px;
@@ -264,26 +270,29 @@ button {
   display: inline-block;
 }
 
-.footer-logo {
-  height: 50px;
-  width: auto;
+.image-hero {
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 32px auto;
   display: block;
-  margin: 0 auto 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
-@media (min-width: 768px) {
-  .hero-logo {
-    height: 80px;
-  }
-}
-
-
-/* ============================================================
-   SEÇÃO 1 — HERO
-   ============================================================ */
-.hero-section {
-  background-color: var(--bg-primary);
-  text-align: center;
+.hero-badge {
+  display: inline-block;
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--accent-primary);
+  background-color: rgba(122, 31, 43, 0.08);
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-bottom: 24px;
 }
 
 .hero-headline {
@@ -297,354 +306,246 @@ button {
   font-size: clamp(1rem, 2.5vw, 1.15rem);
   color: var(--text-secondary);
   max-width: 680px;
-  margin: 0 auto 0;
+  margin: 0 auto 32px;
 }
 
-.hero-image {
-  min-height: 250px;
-  margin: 36px 0;
+.price-hero-block {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAFAF7 100%);
+  border: 2px solid var(--accent-primary);
+  border-radius: 16px;
+  padding: 24px 28px;
+  max-width: 400px;
+  margin: 0 auto 8px;
+  box-shadow: 0 8px 24px rgba(122, 31, 43, 0.08);
 }
 
-.behaviors-grid {
+
+@media (max-width: 767px) {
+  .image-hero {
+    margin: 24px 0;
+    border-radius: 8px;
+  }
+}
+
+
+/* ============================================================
+   SEÇÃO 2 — CHECKS (fundo bordô escuro)
+   ============================================================ */
+.checks-section {
+  background-color: var(--accent-dark);
+}
+
+.checks-list {
+  list-style: none;
   display: grid;
   grid-template-columns: 1fr;
-  gap: 18px;
-  margin: 40px 0;
-  text-align: left;
-}
-
-.behavior-card {
-  background: var(--white);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md);
-  padding: 22px 20px;
-  box-shadow: var(--shadow-soft);
-}
-
-.behavior-title {
-  font-family: 'Fraunces', serif;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--accent-primary);
-  margin-bottom: 10px;
-}
-
-.behavior-card p {
-  font-size: 0.92rem;
-  color: var(--text-secondary);
-  line-height: 1.75;
-}
-
-
-/* ============================================================
-   SEÇÃO 2 — QUIZ
-   ============================================================ */
-.quiz-section {
-  background-color: var(--bg-primary);
-}
-
-.quiz-card {
-  background: var(--white);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  padding: 36px 24px;
-  max-width: 660px;
+  gap: 14px;
+  max-width: 640px;
   margin: 0 auto;
-  min-height: 300px;
+}
+
+.checks-list li {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  text-align: center;
-}
-
-/* Quiz intro */
-.quiz-intro {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-  animation: fadeSlideIn 0.4s ease;
-}
-
-.quiz-intro p {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  font-style: italic;
-  max-width: 500px;
-  line-height: 1.75;
-}
-
-.btn-start-quiz {
-  padding: 16px 40px;
-}
-
-/* Progress bar */
-.progress-wrapper {
-  width: 100%;
-  animation: fadeSlideIn 0.35s ease;
-}
-
-.progress-label {
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-  text-align: left;
-}
-
-.progress-track {
-  width: 100%;
-  height: 6px;
-  background-color: var(--border-soft);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background-color: var(--accent-primary);
-  border-radius: 999px;
-  transition: width 0.4s ease;
-}
-
-/* Question */
-.question-display {
-  width: 100%;
-}
-
-.question-text {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(1rem, 2.5vw, 1.15rem);
-  font-weight: 500;
-  color: var(--text-primary);
-  line-height: 1.65;
-  margin-bottom: 32px;
-}
-
-.answer-buttons {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-answer {
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 14px 0;
-  min-width: 140px;
-  border-radius: var(--radius-sm);
-  border: 2px solid transparent;
-  cursor: pointer;
-  letter-spacing: 0.06em;
-  transition: all 0.2s ease;
-}
-
-.btn-sim {
-  background-color: var(--accent-primary);
-  color: var(--white);
-  border-color: var(--accent-primary);
-}
-
-.btn-sim:hover {
-  background-color: var(--accent-hover);
-  border-color: var(--accent-hover);
-}
-
-.btn-nao {
-  background-color: var(--white);
-  color: var(--text-primary);
-  border-color: var(--border-soft);
-}
-
-.btn-nao:hover {
-  border-color: var(--text-secondary);
-  background-color: var(--bg-primary);
-}
-
-/* Tension phrase */
-.tension-display {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-}
-
-.tension-text {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(1.1rem, 3.5vw, 1.55rem);
-  font-weight: 700;
-  color: var(--accent-alert);
-  line-height: 1.4;
-  max-width: 480px;
-}
-
-.btn-continue {
-  font-weight: 700;
-  font-size: 0.88rem;
-  padding: 13px 40px;
-  background-color: var(--accent-alert);
-  color: var(--white);
-  border: none;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  letter-spacing: 0.06em;
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-
-.btn-continue:hover {
-  background-color: var(--accent-alert-hover);
-  transform: translateY(-1px);
-}
-
-/* Painel de pontuação borrada (exibido após Q12) */
-.loading-display {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 14px;
-  padding: 8px 0;
-  text-align: center;
-  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.5;
 }
 
-.blur-eyebrow {
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-secondary);
-}
-
-.blur-score-number {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(72px, 16vw, 120px);
+.check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  background-color: #22c55e;
+  color: white;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--accent-alert);
-  line-height: 1;
-  filter: blur(12px);
-  user-select: none;
-  pointer-events: none;
-}
-
-.blur-score-faixa {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.9rem, 2.5vw, 1.15rem);
-  font-weight: 700;
-  color: var(--accent-alert);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  filter: blur(6px);
-  user-select: none;
-  pointer-events: none;
-  margin-bottom: 4px;
-}
-
-.blur-desc {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  max-width: 420px;
-  line-height: 1.75;
+  border-radius: 50%;
 }
 
 
 /* ============================================================
-   SEÇÃO 3 — RESULTADO
+   SEÇÃO 3 — MECANISMO ÚNICO
    ============================================================ */
-.resultado-section {
+.educativo-section {
   background-color: var(--white);
+}
+
+.educativo-container {
+  max-width: 720px;
   text-align: center;
 }
 
-.resultado-container {
-  max-width: 720px;
+.educativo-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 28px;
 }
 
-.score-eyebrow {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-bottom: 16px;
-}
-
-.score-number {
-  font-family: 'Fraunces', serif;
-  font-size: clamp(72px, 16vw, 120px);
-  font-weight: 700;
-  color: var(--accent-alert);
-  line-height: 1;
-  margin-bottom: 14px;
-}
-
-.score-faixa {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(0.95rem, 2.5vw, 1.2rem);
-  font-weight: 700;
-  color: var(--accent-alert);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  margin-bottom: 44px;
-}
-
-.score-diagnostico {
+.educativo-text {
   text-align: left;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-bottom: 44px;
+  margin-top: 8px;
 }
 
-.score-diagnostico p {
+.educativo-text p {
   font-size: 1rem;
   line-height: 1.8;
   color: var(--text-secondary);
 }
 
-.score-transition {
-  font-family: 'Fraunces', serif;
-  font-weight: 700;
-  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
-  color: var(--text-primary);
-  padding: 28px 0;
-  line-height: 1.55;
-  border-top: 1px solid var(--border-soft);
-}
-
 
 /* ============================================================
-   SEÇÃO 4 — VSL
+   SEÇÃO 4 — BLOCOS DE DOR
    ============================================================ */
-.vsl-section {
+.pain-section {
   background-color: var(--bg-primary);
-  text-align: center;
 }
 
-.video-wrapper {
-  max-width: 720px;
-  margin: 0 auto;
+.pain-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 32px;
 }
 
-vturb-smartplayer {
-  max-width: 720px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  display: block !important;
+.pain-card {
+  background: var(--white);
+  border: 1px solid #EAE8E0;
+  border-radius: var(--radius-md);
+  padding: 20px 18px;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.video-microcopy {
-  font-size: 0.85rem;
+.pain-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
+}
+
+.pain-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.pain-card p {
+  font-size: 0.97rem;
   color: var(--text-secondary);
-  font-style: italic;
-  margin-top: 14px;
+  line-height: 1.65;
+}
+
+.pain-cta-text {
   text-align: center;
+  font-size: 0.97rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  font-style: italic;
 }
 
 
 /* ============================================================
-   SEÇÃO 5 — OFERTA
+   SEÇÃO 5 — VIRADA NARRATIVA (fundo bordô escuro)
+   ============================================================ */
+.virada-section {
+  background-color: var(--accent-dark);
+  text-align: center;
+}
+
+.virada-container {
+  max-width: 760px;
+}
+
+.virada-headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 5vw, 2.8rem);
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.virada-text {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.85;
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+}
+
+
+/* ============================================================
+   SEÇÃO 6 — PARA QUEM É / NÃO É
+   ============================================================ */
+.paraquem-section {
+  background-color: var(--bg-primary);
+}
+
+.paraquem-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.paraquem-col {
+  background: var(--white);
+  border: 1px solid #EAE8E0;
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-soft);
+}
+
+.paraquem-title {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.paraquem-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.paraquem-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.paraquem-icon {
+  font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.paraquem-icon.sim {
+  color: #16a34a;
+}
+
+.paraquem-icon.nao {
+  color: var(--accent-alert);
+}
+
+
+/* ============================================================
+   SEÇÃO 7 — OFFER STACK
    ============================================================ */
 .oferta-section {
   background-color: var(--white);
@@ -654,15 +555,14 @@ vturb-smartplayer {
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
-  margin-bottom: 48px;
 }
 
 .offer-card {
-  background: var(--bg-primary);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md);
-  padding: 26px 22px;
-  box-shadow: var(--shadow-soft);
+  background-color: #FFFFFF;
+  border: 1px solid #EAE8E0;
+  border-radius: 14px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .offer-icon {
@@ -684,44 +584,67 @@ vturb-smartplayer {
   line-height: 1.75;
 }
 
-/* Bloco de preço */
-.price-block {
+
+/* ============================================================
+   SEÇÃO 8 — PREÇO + CTA
+   ============================================================ */
+.preco-section {
+  background-color: var(--bg-primary);
   text-align: center;
-  padding: 32px 0 12px;
-  border-top: 1px solid var(--border-soft);
-  border-bottom: 1px solid var(--border-soft);
-  margin-bottom: 4px;
 }
 
-.price-old {
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-}
-
-.price-old s {
-  text-decoration: line-through;
-}
-
-.price-new {
-  font-size: clamp(1.25rem, 4vw, 1.75rem);
-  color: var(--accent-primary);
-  font-weight: 500;
-  margin-bottom: 8px;
-}
-
-.price-new strong {
-  font-weight: 700;
-}
-
-.price-detail {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
+.price-card {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FAFAF7 100%);
+  border: 2px solid var(--accent-primary);
+  border-radius: 16px;
+  padding: 40px 28px;
+  max-width: 480px;
+  margin: 0 auto;
+  box-shadow: 0 8px 24px rgba(122, 31, 43, 0.08);
 }
 
 
 /* ============================================================
-   SEÇÃO 6 — DEPOIMENTOS
+   SEÇÃO 9 — AUTORIDADE (fundo bordô escuro)
+   ============================================================ */
+.autoridade-section {
+  background-color: var(--accent-dark);
+}
+
+.autoridade-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.image-harper {
+  max-width: 300px;
+  min-height: 280px;
+  margin: 0 auto;
+}
+
+.autoridade-headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.4rem, 4vw, 1.9rem);
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.autoridade-text p {
+  font-size: 0.97rem;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+.autoridade-text p:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ============================================================
+   SEÇÃO 10 — DEPOIMENTOS
    ============================================================ */
 .depoimentos-section {
   background-color: var(--bg-primary);
@@ -740,6 +663,21 @@ vturb-smartplayer {
   padding: 30px 22px;
   text-align: center;
   box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: "\201C";
+  font-family: 'Fraunces', serif;
+  font-size: 64px;
+  color: var(--accent-primary);
+  opacity: 0.15;
+  position: absolute;
+  top: 8px;
+  left: 16px;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .depoimento-foto {
@@ -748,7 +686,7 @@ vturb-smartplayer {
   border-radius: 50%;
   object-fit: cover;
   display: block;
-  margin: 0 auto 16px auto;
+  margin: 0 auto 12px auto;
   border: 2px solid var(--border-soft);
 }
 
@@ -757,7 +695,14 @@ vturb-smartplayer {
   font-weight: 700;
   font-size: 0.92rem;
   color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.stars {
+  color: #f59e0b;
+  font-size: 1.1rem;
   margin-bottom: 14px;
+  letter-spacing: 2px;
 }
 
 .testimonial-text {
@@ -765,18 +710,11 @@ vturb-smartplayer {
   color: var(--text-secondary);
   line-height: 1.8;
   font-style: italic;
-  font-weight: 400;
-}
-
-.screenshot-caption {
-  font-size: 0.80rem;
-  color: var(--text-secondary);
-  font-style: italic;
 }
 
 
 /* ============================================================
-   SEÇÃO 7 — GARANTIA + URGÊNCIA
+   SEÇÃO 11 — GARANTIA
    ============================================================ */
 .garantia-section {
   background-color: var(--white);
@@ -785,11 +723,12 @@ vturb-smartplayer {
 
 .guarantee-box {
   border: 2px solid var(--accent-primary);
-  border-radius: var(--radius-lg);
-  padding: 34px 26px;
+  border-radius: 16px;
+  padding: 40px 32px;
   background: var(--white);
   max-width: 640px;
-  margin: 0 auto 36px;
+  margin: 0 auto;
+  box-shadow: 0 4px 16px rgba(122, 31, 43, 0.06);
 }
 
 .guarantee-icon {
@@ -813,30 +752,40 @@ vturb-smartplayer {
   line-height: 1.75;
 }
 
-.urgency-block {
-  background-color: #FFF5F0;
-  border-left: 4px solid var(--accent-alert);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  padding: 18px 22px;
-  max-width: 640px;
-  margin: 0 auto 36px;
-  text-align: left;
+
+/* ============================================================
+   SEÇÃO 12 — URGÊNCIA + CTA FINAL (fundo bordô escuro)
+   ============================================================ */
+.urgencia-section {
+  background-color: var(--accent-dark);
+  text-align: center;
 }
 
-.urgency-block p {
-  font-size: 0.95rem;
-  color: var(--accent-alert);
-  font-weight: 500;
-  line-height: 1.7;
+.urgencia-container {
+  max-width: 720px;
 }
 
-.urgency-block strong {
+.urgencia-headline {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
   font-weight: 700;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.urgencia-text {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.8;
+}
+
+.urgencia-section .cta-block {
+  margin-top: 36px;
 }
 
 
 /* ============================================================
-   SEÇÃO 8 — FAQ
+   SEÇÃO 13 — FAQ
    ============================================================ */
 .faq-section {
   background-color: var(--bg-primary);
@@ -850,6 +799,11 @@ vturb-smartplayer {
 
 .accordion-item {
   border-bottom: 1px solid var(--border-soft);
+  transition: padding-left 0.2s ease;
+}
+
+.accordion-item:hover {
+  padding-left: 6px;
 }
 
 .accordion-trigger {
@@ -901,7 +855,6 @@ vturb-smartplayer {
   line-height: 1.75;
 }
 
-/* Esconde via hidden attribute + CSS fallback */
 .accordion-body[hidden] {
   display: none;
 }
@@ -958,6 +911,13 @@ vturb-smartplayer {
   color: #555;
 }
 
+.footer-logo {
+  height: 50px;
+  width: auto;
+  display: block;
+  margin: 0 auto 16px;
+}
+
 
 /* ============================================================
    RESPONSIVE — TABLET 768px+
@@ -968,13 +928,26 @@ vturb-smartplayer {
     padding: 72px 0;
   }
 
-  .hero-image {
-    min-height: 340px;
+  .hero-logo {
+    height: 80px;
   }
 
-  .behaviors-grid {
+  .image-hero {
+    margin: 32px auto;
+  }
+
+  .checks-list {
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
+  }
+
+  .pain-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .paraquem-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
   }
 
   .offer-grid {
@@ -988,8 +961,13 @@ vturb-smartplayer {
     align-items: start;
   }
 
-  .quiz-card {
-    padding: 48px 44px;
+  .autoridade-grid {
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+  }
+
+  .image-harper {
+    margin: 0;
   }
 
   .btn-cta-large {
@@ -1011,173 +989,7 @@ vturb-smartplayer {
     padding: 0 40px;
   }
 
-  .hero-image {
-    min-height: 420px;
-  }
-
-  .behavior-card {
-    padding: 26px 24px;
-  }
-
-  .behavior-title {
-    font-size: 1.05rem;
-  }
-
-  .quiz-card {
-    padding: 56px 52px;
-  }
-
   .offer-card {
     padding: 30px 26px;
   }
-}
-
-
-/* ============================================================
-   REFINAMENTOS VISUAIS
-   ============================================================ */
-
-/* 1 — Background com textura sutil */
-body {
-  background-image:
-    radial-gradient(circle at 25% 25%, rgba(122, 31, 43, 0.015) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(122, 31, 43, 0.015) 0%, transparent 50%);
-  background-attachment: fixed;
-}
-
-/* 2 — Badge sobre a headline hero */
-.hero-badge {
-  display: inline-block;
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  color: var(--accent-primary);
-  background-color: rgba(122, 31, 43, 0.08);
-  padding: 8px 16px;
-  border-radius: 20px;
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-/* 3 — Cards de comportamento com profundidade */
-.behavior-card {
-  border: 1px solid #EAE8E0;
-  border-radius: 12px;
-  padding: 28px 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 4px 12px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  position: relative;
-}
-
-.behavior-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03), 0 12px 24px rgba(0, 0, 0, 0.06);
-}
-
-.behavior-card h3 {
-  color: #1A1A1A;
-  font-size: 19px;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  line-height: 1.3;
-}
-
-.behavior-number {
-  display: inline-block;
-  font-family: 'Fraunces', serif;
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--accent-primary);
-  letter-spacing: -1px;
-}
-
-/* 4 — Divisores decorativos entre seções */
-.section-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  margin: 60px 0;
-}
-
-.section-divider span {
-  flex: 1;
-  max-width: 80px;
-  height: 1px;
-  background: linear-gradient(to right, transparent, #C7BFB5, transparent);
-}
-
-/* 5 — Botões com mais presença */
-.btn-primary {
-  box-shadow: 0 4px 12px rgba(122, 31, 43, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
-}
-
-.btn-primary:hover {
-  box-shadow: 0 6px 16px rgba(122, 31, 43, 0.35);
-}
-
-/* 6 — Cards da oferta */
-.offer-card {
-  background-color: #FFFFFF;
-  border: 1px solid #EAE8E0;
-  border-radius: 14px;
-  padding: 32px 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-/* 7 — Bloco de preço com destaque */
-.price-block {
-  background: linear-gradient(135deg, #FFFFFF 0%, #FAFAF7 100%);
-  border: 2px solid var(--accent-primary);
-  border-radius: 16px;
-  padding: 32px 24px;
-  box-shadow: 0 8px 24px rgba(122, 31, 43, 0.08);
-  margin: 32px auto;
-  max-width: 400px;
-}
-
-.price-new strong {
-  font-family: 'Fraunces', serif;
-  font-size: 56px;
-  font-weight: 700;
-  color: var(--accent-primary);
-  line-height: 1;
-  display: block;
-  margin: 8px 0;
-}
-
-/* 8 — Depoimentos com aspas decorativas */
-.testimonial-card {
-  position: relative;
-  overflow: hidden;
-}
-
-.testimonial-card::before {
-  content: "\201C";
-  font-family: 'Fraunces', serif;
-  font-size: 64px;
-  color: var(--accent-primary);
-  opacity: 0.15;
-  position: absolute;
-  top: 8px;
-  left: 16px;
-  line-height: 1;
-  pointer-events: none;
-}
-
-/* 9 — Garantia com selo mais forte */
-.guarantee-box {
-  border-radius: 16px;
-  padding: 40px 32px;
-  box-shadow: 0 4px 16px rgba(122, 31, 43, 0.06);
-}
-
-/* 10 — FAQ com hover melhor */
-.accordion-item {
-  transition: padding-left 0.2s ease;
-}
-
-.accordion-item:hover {
-  padding-left: 6px;
 }
